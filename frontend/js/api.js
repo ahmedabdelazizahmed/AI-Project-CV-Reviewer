@@ -1,9 +1,10 @@
 /* ── AI Reviewer — API & Shared Utilities ──────────────────────
-   API Base URL — the deployed backend (Render)
+   API Base URL — the deployed backend
    ─────────────────────────────────────────────────────────── */
 
-// TODO: بعد ما تنشر الخدمة على Render، حط رابطها هنا
-const API_BASE = "https://YOUR-SERVICE-NAME.onrender.com";
+// The live backend runs on a teammate's Hugging Face Space (team project).
+// To use your own server, put its URL here.
+const API_BASE = "https://morefaat69-ai-project-review.hf.space";
 
 /* ── Storage helpers (localStorage) ─────────────────────────── */
 const Store = {

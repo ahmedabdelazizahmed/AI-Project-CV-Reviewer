@@ -58,7 +58,7 @@ tailwind.config = {
         <span class="w-2 h-2 rounded-full bg-gray-300 inline-block" id="status-dot"></span>
         Checking API...
       </span>
-      <a href="https://github.com/YOUR-GITHUB-USERNAME/ai-project-cv-reviewer" target="_blank"
+      <a href="https://github.com/ahmedabdelazizahmed/AI-Project-CV-Reviewer" target="_blank"
          class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:opacity-80 transition-all">
         GitHub
       </a>
@@ -210,7 +210,7 @@ tailwind.config = {
       <div class="flex items-center gap-2"><span class="material-symbols-outlined text-2xl">terminal</span><span class="font-semibold text-lg">Flask</span></div>
       <div class="flex items-center gap-2"><span class="material-symbols-outlined text-2xl">link</span><span class="font-semibold text-lg">LangChain</span></div>
       <div class="flex items-center gap-2"><span class="material-symbols-outlined text-2xl">psychology</span><span class="font-semibold text-lg">Groq</span></div>
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-2xl">cloud</span><span class="font-semibold text-lg">Render</span></div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-2xl">cloud</span><span class="font-semibold text-lg">Hugging Face</span></div>
     </div>
   </section>
 </main>
@@ -296,7 +296,7 @@ tailwind.config = {
 
       /* Validate response has analysis */
       if (!result || !result.analysis) {
-        throw new Error("API returned empty response — check the server logs on Render");
+        throw new Error("API returned empty response — check the server logs");
       }
 
       /* Save to history */
@@ -341,7 +341,7 @@ tailwind.config = {
       <div>
         <p class="font-bold mb-1">Analysis Failed</p>
         <p class="font-mono text-xs break-all">${msg}</p>
-        <p class="mt-2 text-xs text-red-600">Check: 1) GROQ_API_KEY in Render environment variables  2) Server is awake (first request can take ~1 min)  3) File size &lt; 15MB</p>
+        <p class="mt-2 text-xs text-red-600">Check: 1) API key is set on the server  2) Server is awake (first request can take ~1 min)  3) File size &lt; 15MB</p>
       </div>`;
     box.classList.remove("hidden");
     box.scrollIntoView({ behavior: "smooth" });
