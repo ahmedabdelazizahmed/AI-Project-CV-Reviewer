@@ -1,8 +1,9 @@
 /* ── AI Reviewer — API & Shared Utilities ──────────────────────
-   API Base URL — HuggingFace Space
+   API Base URL — the deployed backend (Render)
    ─────────────────────────────────────────────────────────── */
 
-const API_BASE = "https://morefaat69-ai-project-review.hf.space";
+// TODO: بعد ما تنشر الخدمة على Render، حط رابطها هنا
+const API_BASE = "https://YOUR-SERVICE-NAME.onrender.com";
 
 /* ── Storage helpers (localStorage) ─────────────────────────── */
 const Store = {
@@ -40,7 +41,7 @@ const API = {
         try {
             res = await fetch(`${API_BASE}/AI`, { method: "POST", body: form });
         } catch (networkErr) {
-            throw new Error(`Network error — is the HuggingFace Space running? (${networkErr.message})`);
+            throw new Error(`Network error — is the server running? (the free server may need about a minute to wake up) (${networkErr.message})`);
         }
 
         if (!res.ok) {

@@ -42,6 +42,9 @@ def _extract_zip(file) -> str:
             # skip hidden/cache dirs
             if any(skip in name for skip in SKIP_DIRS):
                 continue
+            # never read secret files (.env, .env.local, ...) so they can't reach the LLM
+            if os.path.basename(name).lower().startswith(".env"):
+                continue
             # only allowed extensions
             if not any(name.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS if ext != ".zip"):
                 continue

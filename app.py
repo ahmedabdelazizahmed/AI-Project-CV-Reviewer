@@ -1,5 +1,5 @@
 """
-LangChain Multi-tool Agent powered by Grok
+LangChain Multi-tool Agent powered by Groq (Llama 3.3)
 """
 import os
 import uuid
@@ -10,7 +10,7 @@ from flask_cors import CORS
 from config.settings import (
     FLASK_SECRET_KEY, HOST, PORT,
     MAX_FILE_SIZE_MB, MAX_CONTENT_CHARS, MAX_MESSAGE_LENGTH,
-    ALLOWED_EXTENSIONS, GROK_MODEL,
+    ALLOWED_EXTENSIONS, LLM_MODEL,
 )
 from utils.rate_limiter import is_rate_limited
 from utils.file_handler import extract_text_from_file, detect_content_type
@@ -39,7 +39,7 @@ def health_check():
     return jsonify({
         "status": "ok",
         "mode":   "LangChain Multi-tool Agent",
-        "model":  GROK_MODEL,
+        "model":  LLM_MODEL,
         "tools":  ["code_structure_analyzer", "bug_detector",
                    "best_practices_checker", "code_improver",
                    "cv_analyzer", "web_search"],

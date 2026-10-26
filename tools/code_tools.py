@@ -225,9 +225,9 @@ import asyncio
 from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI(
-    api_key=os.getenv("GROK_API_KEY"),
-    base_url="https://api.x.ai/v1",
-    model="grok-3-mini",
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+    model="llama-3.3-70b-versatile",
     temperature=0.3,
     request_timeout=30,
     max_retries=2,

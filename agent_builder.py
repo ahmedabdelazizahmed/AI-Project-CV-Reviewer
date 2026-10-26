@@ -4,7 +4,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain import hub
 
 from config.settings import (
-    GROK_API_KEY, GROK_BASE_URL, GROK_MODEL,
+    LLM_API_KEY, LLM_BASE_URL, LLM_MODEL,
     LLM_TEMPERATURE, LLM_TIMEOUT, LLM_MAX_RETRIES,
     AGENT_MAX_ITERATIONS, AGENT_VERBOSE,
 )
@@ -12,10 +12,14 @@ from tools import ALL_TOOLS
 
 
 def _build_llm() -> ChatOpenAI:
+    if not LLM_API_KEY:
+        raise RuntimeError(
+            "GROQ_API_KEY is not set. Add it to .env (local) or to the environment variables of your hosting service."
+        )
     return ChatOpenAI(
-        api_key=GROK_API_KEY,
-        base_url=GROK_BASE_URL,
-        model=GROK_MODEL,
+        api_key=LLM_API_KEY,
+        base_url=LLM_BASE_URL,
+        model=LLM_MODEL,
         temperature=LLM_TEMPERATURE,
         request_timeout=LLM_TIMEOUT,
         max_retries=LLM_MAX_RETRIES,

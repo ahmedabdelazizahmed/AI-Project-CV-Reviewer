@@ -1,37 +1,45 @@
-# AI Reviewer — Frontend
-Connected to: https://morefaat69-ai-project-review.hf.space
+# AI Project & CV Reviewer
 
-## Project Structure
+An AI agent that reviews **code projects** (ZIP / single file) and **technical CVs** (PDF / text) and then lets you chat about the results.
 
+> Originally built as a team project in the Digital Egypt Pioneers Initiative (DEPI). This repository is my own deployment: I cleaned the structure, fixed the docs, hardened the file handling, and run it with my own keys.
+
+## How it works
+- **Backend:** Flask API + a LangChain **ReAct agent** with conversation memory.
+- **LLM:** Llama 3.3 70B (`llama-3.3-70b-versatile`) served by **Groq** through its OpenAI-compatible endpoint.
+- **Tools the agent can call:** `code_structure_analyzer`, `bug_detector`, `best_practices_checker`, `code_improver`, `cv_analyzer` (rule-based keyword/ATS scoring), `web_search` (DuckDuckGo).
+- **Frontend:** static HTML/JS (upload → results + chat → history stored in the browser).
+- **Safety:** per-IP rate limit (20 requests/hour), file size limit (15 MB), content truncation (7,000 chars), and `.env*` files inside uploaded ZIPs are never read.
+
+## Endpoints
+| Method | Path | What it does |
+|---|---|---|
+| POST | `/AI` | Upload a file, get the first analysis + `session_id` |
+| POST | `/chat` | Follow-up question inside a session |
+| DELETE | `/session/<id>` | Delete a session |
+| GET | `/session/<id>/history` | Get chat history |
+| GET | `/health` | Status, model, tools |
+
+Details: `docs/API_Documentation.txt`.
+
+## Run locally
+```bash
+pip install -r requirements.txt
+cp .env.example .env      # then put your own GROQ_API_KEY inside
+python app.py             # http://localhost:7860/health
 ```
-ai-reviewer/
-├── page1.html        → Upload page  (drag & drop → POST /AI)
-├── page2.html        → Results page (shows analysis + chat → POST /chat)
-├── page3.html        → History page (localStorage + DELETE /session/:id)
-│
-├── css/
-│   └── styles.css    → Shared styles (glass cards, toast, loading, chat bubbles)
-│
-└── js/
-    └── api.js        → API calls, localStorage helpers, toast, markdown renderer
-```
+Open `frontend/page1.html` and set `API_BASE` in `frontend/js/api.js` to `http://localhost:7860` while testing.
 
-## How Pages Connect
+## Deploy (free) on Render
+1. Push this repo to GitHub.
+2. On render.com: **New → Web Service**, connect the repo, runtime **Docker**, plan **Free**.
+3. Add the environment variable `GROQ_API_KEY` (and optionally `FLASK_SECRET_KEY`) in the service settings. Never commit keys.
+4. After the first deploy, open `https://<your-service>.onrender.com/health`.
+5. Put that URL in `API_BASE` inside `frontend/js/api.js`, then publish the `frontend/` folder (for example with GitHub Pages).
 
-| Page | API Endpoint | What it does |
-|------|-------------|--------------|
-| page1.html | POST /AI | Uploads file, gets analysis + session_id |
-| page2.html | POST /chat | Sends follow-up messages using session_id |
-| page3.html | DELETE /session/:id | Deletes session from API and localStorage |
+Note: on the free plan the server sleeps after about 15 minutes without traffic, so the first request after a pause can take about a minute.
 
-## How to Run Locally
-Just open `page1.html` in any browser — no server needed.
-All API calls go to HuggingFace Spaces directly.
-
-## Data Flow
-1. User uploads file on page1 → API returns { session_id, analysis, content_type, filename }
-2. Session saved to localStorage (history) AND sessionStorage (current)
-3. page2 reads from sessionStorage → shows analysis + enables chat
-4. page3 reads from localStorage → shows all past sessions
-5. "View" on page3 → loads session into sessionStorage → goes to page2
-6. "Delete" on page3 → calls DELETE /session/:id + removes from localStorage
+## Known limitations (honest list)
+- Sessions are kept in memory, so they reset when the server restarts.
+- `cv_analyzer` is keyword-based, not an LLM judgment (planned improvement).
+- Free-tier LLM limits apply.

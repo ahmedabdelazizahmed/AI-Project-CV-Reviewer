@@ -8,7 +8,7 @@ langchain-openai==0.3.16
 langchain-community==0.3.23
 langchainhub==0.1.21
 
-# ── LLM Provider (Grok via OpenAI-compatible API) ─────────────────────────────
+# ── LLM Provider (Groq via OpenAI-compatible API) ─────────────────────────────
 openai==1.77.0
 
 # ── Web Search (no API key needed) ────────────────────────────────────────────

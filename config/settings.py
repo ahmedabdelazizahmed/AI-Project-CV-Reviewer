@@ -1,9 +1,13 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()  # reads .env when running locally (ignored if the file doesn't exist)
+
 #  LLM 
-GROK_API_KEY  = os.getenv("GROQ_API_KEY")
-GROK_BASE_URL = "https://api.groq.com/openai/v1"
-GROK_MODEL    = "llama-3.3-70b-versatile"
+LLM_API_KEY  = os.getenv("GROQ_API_KEY")
+LLM_BASE_URL = "https://api.groq.com/openai/v1"
+LLM_MODEL    = "llama-3.3-70b-versatile"
 LLM_TEMPERATURE   = 0.3
 LLM_TIMEOUT       = 30      # seconds
 LLM_MAX_RETRIES   = 2
@@ -30,7 +34,7 @@ ALLOWED_EXTENSIONS = {
     ".py", ".js", ".ts", ".jsx", ".tsx", ".java", ".cpp", ".c", ".cs",
     ".go", ".rs", ".php", ".rb", ".swift", ".kt", ".html", ".css",
     ".json", ".yaml", ".yml", ".md", ".txt", ".pdf", ".zip",
-    ".env", ".toml", ".cfg", ".ini", ".sh", ".dockerfile", ".xml",
+    ".toml", ".cfg", ".ini", ".sh", ".dockerfile", ".xml",
 }
 
 SKIP_DIRS = {"__pycache__", "node_modules", ".git", ".DS_Store"}
