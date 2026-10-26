@@ -2,7 +2,7 @@
 
 An AI agent that reviews **code projects** (ZIP / single file) and **technical CVs** (PDF / text) and then lets you chat about the results.
 
-> Originally built as a team project in the Digital Egypt Pioneers Initiative (DEPI). This repository is my own deployment: I cleaned the structure, fixed the docs, hardened the file handling, and run it with my own keys.
+> Team graduation project from the Digital Egypt Pioneers Initiative (DEPI, program period Nov 2025 – Jul 2026), built by [Ahmed Abdelaziz](https://github.com/ahmedabdelazizahmed) and [morefaat69](https://github.com/morefaat69). This repository holds the version cleaned and documented in Oct 2026 (folder structure, docs, file-handling safety fix). The live demo backend runs on a teammate's Hugging Face Space, using his Groq API key.
 
 ## How it works
 - **Backend:** Flask API + a LangChain **ReAct agent** with conversation memory.
@@ -30,7 +30,7 @@ python app.py             # http://localhost:7860/health
 ```
 Open `frontend/page1.html` and set `API_BASE` in `frontend/js/api.js` to `http://localhost:7860` while testing.
 
-## Deploy (free) on Render
+## Deploy your own copy (optional): Render
 1. Push this repo to GitHub.
 2. On render.com: **New → Web Service**, connect the repo, runtime **Docker**, plan **Free**.
 3. Add the environment variable `GROQ_API_KEY` (and optionally `FLASK_SECRET_KEY`) in the service settings. Never commit keys.
