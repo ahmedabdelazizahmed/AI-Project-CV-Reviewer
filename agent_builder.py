@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain.memory import ConversationBufferMemory
-from langchain import hub
+from prompts.react_chat_prompt import REACT_CHAT_PROMPT
 
 from config.settings import (
     LLM_API_KEY, LLM_BASE_URL, LLM_MODEL,
@@ -32,8 +32,8 @@ def build_agent_executor() -> AgentExecutor:
     يُستدعى مرة واحدة لكل session جديدة.
     """
     llm    = _build_llm()
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    prompt = hub.pull("hwchase17/react-chat")   # يدعم chat_history
+    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=False)
+    prompt = REACT_CHAT_PROMPT   # قالب محلي يدعم chat_history (بدون اتصال بالإنترنت)
     agent  = create_react_agent(llm, ALL_TOOLS, prompt)
 
     return AgentExecutor(
